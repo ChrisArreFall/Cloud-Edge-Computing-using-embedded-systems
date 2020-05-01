@@ -1,0 +1,22 @@
+Steps to install cluster
+
+
+On master use the following command to install k3s server:
+
+On WRL it is necesarry to create the foler /user/local/lib/
+
+> curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="--write-kubeconfig-mode 644" sh -
+
+Then obtain token using the following command:
+
+> sudo cat /var/lib/rancher/k3s/server/node-token
+
+It should look like:
+
+K104f3839b7243c3922947553b6680e3648692ad65aa3544157979fcb4a85ca2de0::server:ec79386db34d694847e3f2f6cfb61145
+
+Now on the worker nodes use the following command:
+
+> curl -sfL https://get.k3s.io | K3S_URL=https://192.168.0.50:6443 K3S_TOKEN=K104f3839b7243c3922947553b6680e3648692ad65aa3544157979fcb4a85ca2de0::server:ec79386db34d694847e3f2f6cfb61145 sh -
+
+Now the cluster is done.

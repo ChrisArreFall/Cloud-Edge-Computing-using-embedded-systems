@@ -1,0 +1,3 @@
+To use this service use:
+
+curl -X POST -F image=@picture.jpg 'http://localhost:5000/predict'
