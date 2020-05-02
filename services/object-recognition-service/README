@@ -1,3 +1,10 @@
 To use this service use:
 
-curl -X POST -F image=@picture.jpg 'http://localhost:5000/predict'
+curl -X POST -F image=@dog.jpg 'http://localhost:5000/predict'
+
+
+Docker steps
+
+docker build --tag image-processing-service:1.0 .
+
+docker run -p 5000:5000 image-processing-service:1.0
