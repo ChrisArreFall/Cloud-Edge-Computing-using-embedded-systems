@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Image processing CEC test</title>
+	<link rel="stylesheet" type="text/css" href="../static/index.css">
+	<script
+			src="https://code.jquery.com/jquery-3.3.1.min.js"
+			integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+			crossorigin="anonymous"></script>
+	<script type="text/javascript" src="../static/index.js"></script>
+</head>
+<body style="text-align: center;">
+
+<div style="text-align: left;">
+	<form action="/action_page.php">
+		<p>Image processing options:</p>
+		<input type="radio" id="black_white" name="image_processing" value="black_white" checked="checked">
+		<label for="black_white">Black and white</label>
+		<br>
+		<input type="radio" id="denoise" name="image_processing" value="denoise">
+		<label for="denoise">Denoise</label>
+		<br>
+		<input type="radio" id="gaussian_blur" name="image_processing" value="gaussian_blur">
+		<label for="gaussian_blur">Gaussian Blur</label>
+		<br>
+		<input type="radio" id="median_blur" name="image_processing" value="median_blur">
+		<label for="median_blur">Median Blur</label>
+		<br>
+		<input type="radio" id="detect_edges" name="image_processing" value="detect_edges">
+		<label for="detect_edges">Detect Edges</label>
+		<br>
+		<input type="radio" id="color_detection" name="image_processing" value="color_detection">
+		<label for="color_detection">Color Detection</label>
+		<br>
+		<input type="radio" id="object_detection" name="image_processing" value="object_detection">
+		<label for="object_detection">Object Detection</label>
+		<br>
+	  </form>
+</div>
+<hr>
+<div class="box">
+	<input id="imageinput" type="file" name="image" onchange="readUrl(this)">
+	<button name="send" id = "sendbutton">Send</button>
+	<hr>
+	<img id="imagebox" src="">
+	<p id="prediction"></p>
+	
+</div>
+
+</body>
+</html>
