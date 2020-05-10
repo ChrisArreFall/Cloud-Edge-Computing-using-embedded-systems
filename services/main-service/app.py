@@ -5,6 +5,8 @@ import os , io , sys
 import numpy as np 
 import cv2
 import base64
+from mega import Mega
+import time
 
 app = Flask(__name__)
 
@@ -16,6 +18,9 @@ urlOB = addrOB + '/predictBase64'
 
 # prepare headers for http request
 content_type = 'image/jpeg'
+
+mega = Mega()
+m = mega.login('chrisarredondo2017@gmail.com', '2016094916')
 
 @app.route('/start' , methods=['POST'])
 def start():
@@ -34,6 +39,18 @@ def start():
         img_base64 = base64.b64encode(rawBytes.read())
         response = requests.post(urlOB, json={'image': str(img_base64)})
         return response.text
+    elif(request.form['option']=='save_image'):
+        name = str(time.time())+".png"
+        cv2.imwrite(name,img)
+        file = m.upload(name)
+        link = m.get_upload_link(file)
+        img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+        img = Image.fromarray(img.astype("uint8"))
+        rawBytes = io.BytesIO()
+        img.save(rawBytes, "JPEG")
+        rawBytes.seek(0)
+        img_base64 = base64.b64encode(rawBytes.read())
+        return jsonify({'status':str(img_base64),'link':str(link)})
     else:
         img = Image.fromarray(img.astype("uint8"))
         rawBytes = io.BytesIO()

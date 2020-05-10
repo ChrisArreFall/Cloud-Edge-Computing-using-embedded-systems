@@ -25,18 +25,26 @@ window.onload = () => {
 					console.log(data.getAllResponseHeaders());
 				},
 				success: function(data){
-					dataJ = JSON.parse(data)
-					console.log(dataJ)
-					bytestring = dataJ['status']
-					image = bytestring.split('\'')[1]
-					imagebox.attr('src' , 'data:image/jpeg;base64,'+image)
-					if(dataJ['predictions']){
-						document.getElementById("prediction").innerHTML = JSON.stringify(dataJ['predictions']);
+					if(data.hasOwnProperty('link')){
+						console.log(data)
+						document.getElementById("prediction").innerHTML = JSON.stringify(data['link']);
+						bytestring = data['status']
+						image = bytestring.split('\'')[1]
+						imagebox.attr('src' , 'data:image/jpeg;base64,'+image)
 					}
 					else{
-						document.getElementById("prediction").innerHTML = "";
+						dataJ = JSON.parse(data)
+						console.log(dataJ)
+						bytestring = dataJ['status']
+						image = bytestring.split('\'')[1]
+						imagebox.attr('src' , 'data:image/jpeg;base64,'+image)
+						if(dataJ['predictions']){
+							document.getElementById("prediction").innerHTML = JSON.stringify(dataJ['predictions']);
+						}
+						else{
+							document.getElementById("prediction").innerHTML = "";
+						}
 					}
-					
 				}
 			});
 		}
