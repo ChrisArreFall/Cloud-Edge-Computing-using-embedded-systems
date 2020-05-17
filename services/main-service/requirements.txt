@@ -2,3 +2,6 @@ flask
 gevent
 pillow
 requests
+numpy
+opencv-contrib-python
+mega.py

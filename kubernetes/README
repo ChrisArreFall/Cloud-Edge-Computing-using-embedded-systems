@@ -1,0 +1,7 @@
+kubectl apply -f main-service.yaml
+kubectl apply -f object-recognition-service.yaml 
+kubectl apply -f image-processing-service.yaml
+
+
+kubectl delete services image-processing-service object-recognition-service main-service
+kubectl delete deployments object-recognition-deployment image-processing-deployment main-service-deployment

@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: object-recognition-service
+spec:
+  selector:
+    app: object-recognition-service
+  ports:
+  - protocol: "TCP"
+    port: 5002
+    targetPort: 5002
+    nodePort: 30002
+  type: LoadBalancer
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: object-recognition-deployment
+spec:
+  selector:
+    matchLabels:
+      app: object-recognition-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: object-recognition-service
+    spec:
+      containers:
+      - name: object-recognition-service
+        image: chrisarrefall/object-recognition-service:1.0
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5002
+      nodeSelector:
+        layer: mid

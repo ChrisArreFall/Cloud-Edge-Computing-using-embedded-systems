@@ -10,10 +10,10 @@ import time
 
 app = Flask(__name__)
 
-addrIM = 'http://localhost:5001'
+addrIM = 'http://image-processing-service:5001'
 urlIM = addrIM + '/processBase64'
 
-addrOB = 'http://localhost:5002'
+addrOB = 'http://object-recognition-service:5002'
 urlOB = addrOB + '/predictBase64'
 
 # prepare headers for http request
@@ -44,6 +44,9 @@ def start():
         cv2.imwrite(name,img)
         file = m.upload(name)
         link = m.get_upload_link(file)
+
+        os.remove(name)
+
         img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
         img = Image.fromarray(img.astype("uint8"))
         rawBytes = io.BytesIO()
@@ -58,11 +61,11 @@ def start():
         rawBytes.seek(0)
         img_base64 = base64.b64encode(rawBytes.read())
         response = requests.post(urlIM, json={'image': str(img_base64),'operation':str(request.form['option'])})
-        print(response.text)
+        #print(response.text)
         return response.text
 
 
-#@app.route('/test' , methods=['GET','POST'])
+@app.route('/test' , methods=['GET','POST'])
 def test():
     print("log: got at test" , file=sys.stderr)
     return jsonify({'status':'succces'})
@@ -83,4 +86,4 @@ def after_request(response):
 
 
 if __name__ == '__main__':
-    app.run(debug = True)
+    app.run(debug = True,host='0.0.0.0', port=5000)

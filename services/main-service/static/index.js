@@ -14,7 +14,7 @@ window.onload = () => {
 				}
 			}
 			$.ajax({
-				url: "http://localhost:5000/start", // fix this to your liking
+				url: "http://192.168.0.52:30000/start", // fix this to your liking
 				type:"POST",
 				data: formData,
 				cache: false,
