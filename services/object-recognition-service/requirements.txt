@@ -1,5 +1,5 @@
 keras==2.2.3
-tensorflow==1.15.2
+tensorflow==2.5.0
 flask
 gevent
 pillow
